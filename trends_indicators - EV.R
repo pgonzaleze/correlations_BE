@@ -342,43 +342,7 @@ PubServ$PubServ <- (1+max(PubServ$PubServ, na.rm = T)) - PubServ$PubServ
 #####           for each country                 #####
 ##### ========================================== #####
 
-"
-Use the GII datafrane as an example. This should be replcated for the 21 dataframes
-"
-# 
-# # Calculate slope, intercept, mean, and standard deviation for each country
-# GII <- na.omit(GII) # omit NA's 
-# 
-# # 
-# slope_intercept <- GII %>%
-#   group_by(Territory) %>%
-#   summarise(
-#     mean_value = mean(GII),
-#     sd_value = sd(GII),
-#     mean_year = mean(Year),
-#     sd_year = sd(Year),
-#     correlation = cor(Year, GII),
-#     slope = correlation * (sd(GII) / sd(Year)),
-#     intercept = mean_value - slope * mean_year
-#   )
-# 
-# # View the resulting dataframe containing slopes, intercepts, mean, and sd for each Territory
-# print(slope_intercept)
-# 
-# # TODO
-# 
-# " Compute the slope and intercept for all the indicators and save the dataframes
-#  as either csv or xlsx file
-# "
-# # save the "slope_intercept" data frame as .cvs file
-# output_folder <- "path_to_your_folder"  # Specify the path to your new folder
-# dir.create(output_folder, showWarnings = FALSE)  # Create a new folder
-# write.csv(slope_intercept, file = paste0(output_folder, "/GII_Es.csv"), row.names = FALSE)
-
-
-
 #omit NAs
-
 AirTransport <- na.omit(AirTransport)
 #Arrivals <- na.omit(Arrivals)
 BEnv <- na.omit(BEnv)
@@ -442,57 +406,7 @@ for (df in dataframes_list) {
 }
 
 
-# Filter and update each dataframe by the year 2000
-# 
-# AirTransport <- AirTransport %>% filter(Year >= 2000)
-# BEnv <- BEnv %>% filter(Year >= 2000)
-# BioHabitat <- BioHabitat %>% filter(Year >= 2000)
-# BioSpp <- BioSpp %>% filter(Year >= 2000)
-# CleanWaters <- CleanWaters %>% filter(Year >= 2000)
-# ContCorr <- ContCorr %>% filter(Year >= 2000)
-# EconIneq <- EconIneq %>% filter(Year >= 2000)
-# FacElit <- FacElit %>% filter(Year >= 2000)
-# GII <- GII %>% filter(Year >= 2000)
-# GovEff <- GovEff %>% filter(Year >= 2000)
-# GrpGriev <- GrpGriev %>% filter(Year >= 2000)
-# HFBD <- HFBD %>% filter(Year >= 2000)
-# HRRL <- HRRL %>% filter(Year >= 2000)
-# InvPI <- InvPI %>% filter(Year >= 2000)
-# PortInf <- PortInf %>% filter(Year >= 2000)
-# PubServ <- PubServ %>% filter(Year >= 2000)
-# RegQual <- RegQual %>% filter(Year >= 2000)
-# SecIntServ <- SecIntServ %>% filter(Year >= 2000)
-# ShipConn <- ShipConn %>% filter(Year >= 2000)
-# StatEcon <- StatEcon %>% filter(Year >= 2000)
-# StatLegit <- StatLegit %>% filter(Year >= 2000)
 
-# # Combine the dataframes into one single dataframe
-# # Merge dataframes by "Territory" and "Year"
-# Indicators_DF <- AirTransport %>%
-#   left_join(GII, by = c("Territory", "Year")) %>%
-#   left_join(GovEff, by = c("Territory", "Year")) %>%
-#   left_join(ContCorr, by = c("Territory", "Year")) %>%
-#   left_join(RegQual, by = c("Territory", "Year")) %>%
-#   left_join(ShipConn, by = c("Territory", "Year")) %>%
-#   left_join(StatEcon, by = c("Territory", "Year")) %>%
-#   left_join(EconIneq, by = c("Territory", "Year")) %>%
-#   left_join(FacElit, by = c("Territory", "Year")) %>%
-#   left_join(GrpGriev, by = c("Territory", "Year")) %>%
-#   left_join(HFBD, by = c("Territory", "Year")) %>%
-#   left_join(HRRL, by = c("Territory", "Year")) %>%
-#   left_join(PubServ, by = c("Territory", "Year")) %>%
-#   left_join(StatLegit, by = c("Territory", "Year")) %>%
-#   left_join(BioHabitat, by = c("Territory", "Year")) %>%
-#   left_join(BioSpp, by = c("Territory", "Year")) %>%
-#   left_join(CleanWaters, by = c("Territory", "Year")) %>%
-#   left_join(SecIntServ, by = c("Territory", "Year")) %>%
-#   left_join(PortInf, by = c("Territory", "Year")) %>%
-#   left_join(BEnv, by = c("Territory", "Year")) %>%
-#   left_join(InvPI, by = c("Territory", "Year"))
-# 
-# # Pivot the dataframe to a long format for plotting
-# long_df <- Indicators_DF %>%
-#   pivot_longer(cols = -c(Territory, Year), names_to = "indicator", values_to = "value")
 
 # Plot the combined dataframe
 P1 <- ggplot(ContCorr, aes(x = Year, y = ContCorr, colour = Territory)) +
