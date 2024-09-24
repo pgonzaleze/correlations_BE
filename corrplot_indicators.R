@@ -189,7 +189,7 @@ Indicators_DF <- left_join(AirTransport, GII, by = "Territory") %>%
 #########################################################################
 ####                     compute correlations                      ######
 #########################################################################
-C <-cor(Indicators_DF[,2:22], use = "pairwise.complete.obs")
+C <- cor(Indicators_DF[,2:22], use = "pairwise.complete.obs")
 head(round(C,2))
 
 # Plot correlation matrix using corrplot
@@ -221,7 +221,6 @@ Indicators_DF[, 2:22] <- apply(Indicators_DF[, 2:22], 2, as.numeric)
 P_spearman <- apply(Indicators_DF[, 2:22], 2, function(col1) {
   sapply(Indicators_DF[, 2:22], function(col2) {
     cor.test(col1, col2, method = "spearman")$p.value
-  
   })
 })
 
