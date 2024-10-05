@@ -4,6 +4,12 @@
 #####        trough a correlation analysis             #####
 ##### ================================================ #####
 
+# Simon Fraser University
+# Resource & Environmental Management
+# Author: Pedro G. Gonzalez-Espinosa
+# Created: 13/ SEP /2023
+# Last update: 28/ SEP /2024
+
 library(readxl)
 library(tidyr)
 library(dplyr)
@@ -33,7 +39,6 @@ str(GII) # ranges from 0 to 10
 
 # Covert to numeric if necessary
 FacElit$FactElit = as.numeric(FacElit$FactElit)
-
 
 # Function to detrend data with dynamic column naming
 detrend <- function(df) {
@@ -328,81 +333,6 @@ summary_df$Proportion_Tradeoff <- summary_df$Proportion_Tradeoff *100
 # Print the summary data frame
 print(summary_df)
 
-
-############################################################
-##################        MAP        #######################
-############################################################
-
-# Load necessary libraries
-library(sf)
-library(ggplot2)
-library(tibble)
-library(RColorBrewer)
-library(viridis)
-
-# Download and load world map data
-# url <- "https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip"
-# temp <- tempfile(fileext = ".zip")
-# download.file(url, temp, mode = "wb")
-# unzip(temp, exdir = tempdir())
-# world <- st_read(file.path(tempdir(), "ne_110m_admin_0_countries.shp"))
-
-# load world map data
-world <- read_sf("C:/Users/PedroG_SFU/Documents/Shapefiles/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp")
-
-
-# Convert index to a column in summary_df
-summary_df <- summary_df %>% rownames_to_column(var = "Territory")
-
-# Replace the name in summary_df
-#summary_df$Territory <- gsub("United States", "United States of America", summary_df$Territory)
-summary_df$Territory <- gsub("Congo Democratic Republic", "Democratic Republic of the Congo", summary_df$Territory)
-#summary_df$Territory <- gsub("Congo Republic", "Republic of the Congo", summary_df$Territory)
-summary_df$Territory <- gsub("Tanzania", "United Republic of Tanzania",summary_df$Territory)
-
-# Merge world map with your data
-world_data <- merge(world, summary_df, by.x = "SOVEREIGNT", by.y = "Territory")
-
-# Filter countries with access to the sea
-# Manually create a list of landlocked countries
-landlocked_country_names <- c("Afghanistan", "Andorra", "Armenia", "Austria", "Azerbaijan", "Belarus", "Bhutan", "Bolivia", 
-                              "Botswana", "Burkina Faso", "Burundi", "Central African Republic", "Chad", "Czechia", 
-                              "Czech Republic", "Eswatini", "Ethiopia", "Hungary", "Kazakhstan", "Kosovo", "Kyrgyzstan", 
-                              "Laos", "Lesotho", "Liechtenstein", "Luxembourg", "Macedonia", "Malawi", "Mali", "Moldova", 
-                              "Monaco", "Mongolia", "Nepal", "Niger", "Paraguay", "Rwanda", "San Marino", "Serbia", 
-                              "Slovakia", "South Sudan", "Switzerland", "Tajikistan", "Turkmenistan", "Uganda", "Uzbekistan",
-                              "Vatican City", "Zambia", "Zimbabwe")
-
-# Filter the non-landlocked countries from world_data
-landlocked_countries <- world_data[world_data$SOVEREIGNT %in% landlocked_country_names, ]
-non_landlocked_countries <- world_data[!world_data$SOVEREIGNT %in% landlocked_country_names, ]
-
-
-# Create a plot for sea-access countries
-ggplot() +
-  geom_sf(data = non_landlocked_countries, aes(fill = Proportion_Neutral)) +
-  scale_fill_distiller(name = "Proportion Neutral", palette = "Spectral") +
-  #scale_fill_viridis(name = "Proportion Synergies") +
-  geom_sf(data = landlocked_countries, fill = "gray", color = "gray") +
-  theme_minimal() +
-  theme(legend.position = "none")  # Remove the legend box
-
-ggplot() +
-  geom_sf(data = non_landlocked_countries, aes(fill = Proportion_Synergy)) +
-  scale_fill_distiller(name = "Proportion Synergy", palette = "Spectral") +
-  #scale_fill_viridis(name = "Proportion Synergies") +
-  geom_sf(data = landlocked_countries, fill = "gray", color = "gray") +
-  theme_minimal() +
-  theme(legend.position = "none")  # Remove the legend box
-
-# Create a plot for sea-access countries
-ggplot() +
-  geom_sf(data = non_landlocked_countries, aes(fill = Proportion_Tradeoff)) +
-  scale_fill_distiller(name = "Proportion Trade-offs", palette = "Spectral") +
-  #scale_fill_viridis(name = "Proportion Synergies") +
-  geom_sf(data = landlocked_countries, fill = "gray", color = "gray") +
-  theme_minimal() +
-  theme(legend.position = "none")  # Remove the legend box
 
 
 #######################################################
