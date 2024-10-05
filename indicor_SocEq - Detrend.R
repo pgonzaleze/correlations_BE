@@ -1,8 +1,8 @@
 
-##### ================================================= #####
-#####             Clasify correlations;                 #####
-#####            a longitudinal analysis                #####
-##### ================================================= #####
+##### ================================================== #####
+#####             Classify correlations;                 #####
+#####            a longitudinal analysis                 #####
+##### ================================================== #####
 
 # Simon Fraser University
 # Resource & Environmental Management

@@ -1,8 +1,8 @@
 
-##### ================================================= #####
-#####             Clasify correlations;                 #####
-#####          a cross-sectional analysis               #####
-##### ================================================= #####
+##### ================================================== #####
+#####             Classify correlations;                 #####
+#####           a cross-sectional analysis               #####
+##### ================================================== #####
 
 # Simon Fraser University
 # Resource & Environmental Management
