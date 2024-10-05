@@ -8,7 +8,7 @@
 #####
 # Simon Fraser University
 # Resource & Environmental Management
-# Author: Pedro G. Gonzalez-Espinosa
+# Author: Pedro C. Gonzalez-Espinosa
 # Created: 13/ SEP /2023
 # Last update: 28/ SEP /2024
 
